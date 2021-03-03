@@ -22,4 +22,5 @@
     <string name="select_workout">Select Workout</string>
     <string name="sets">Sets</string>
     <string name="reps">Reps</string>
+    <string name="btn_advance_exercise">Add Exercise</string>
 </resources>

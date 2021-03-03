@@ -63,6 +63,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnAddExercise"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="@string/add_exercise"/>
