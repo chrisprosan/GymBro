@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/txtSetUpWorkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="@string/set_up_a_workout_schedule"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="290dp"
+                android:background="#D3D3D3"
+                android:text="@string/select_workout"/>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="290dp"
+                android:background="#D3D3D3"
+                android:text="@string/sets"/>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="290dp"
+                android:background="#D3D3D3"
+                android:text="@string/reps"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_exercise"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnMon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/mon"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnTues"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/tues"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnWed"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/wed"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnThurs"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="5.11sp"
+                android:text="@string/thurs"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnFri"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/fri"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnSat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/sat"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btnSun"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="6.25sp"
+                android:text="@string/sun"
+                tools:ignore="SmallSp" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/next"/>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
