@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends AppCompatActivity {
     Button mCreateWorkoutSchedule;
     FloatingActionButton fab;
     public GymBroApplication app_context;

@@ -22,7 +22,6 @@
             android:id="@+id/timer_count"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hardcoded_timer"
             android:gravity="center_horizontal"/>
 
         <Button
@@ -45,8 +44,7 @@
                     android:layout_height="fill_parent"
                     android:layout_column="0"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="Set: 0/3"/>
+                    android:gravity="center_vertical" />
 
                 <Button
                     android:id="@+id/btn_set_increment"
@@ -66,8 +64,7 @@
                     android:layout_height="fill_parent"
                     android:layout_column="0"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="Rep: 0/8"/>
+                    android:gravity="center_vertical" />
 
                 <Button
                     android:id="@+id/btn_rep_increment"

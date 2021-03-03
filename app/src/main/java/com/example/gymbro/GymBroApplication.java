@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class GymBroApplication extends Application {
 
@@ -13,5 +14,9 @@ public class GymBroApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
