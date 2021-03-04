@@ -23,4 +23,6 @@
     <string name="sets">Sets</string>
     <string name="reps">Reps</string>
     <string name="btn_advance_exercise">Add Exercise</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_exercise_vid">See Video</string>
 </resources>
