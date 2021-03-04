@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class Exercise {
+
+
     private final String exerciseName;
     private int sets;
     private int reps;
