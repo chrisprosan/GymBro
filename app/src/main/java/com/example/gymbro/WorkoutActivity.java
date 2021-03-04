@@ -1,11 +1,13 @@
 package com.example.gymbro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class WorkoutActivity extends AppCompatActivity {
         mStartTimer = (Button) findViewById(R.id.btn_timer_start);
         mSetIncrement = (Button) findViewById(R.id.btn_set_increment);
         mRepIncrement = (Button) findViewById(R.id.btn_rep_increment);
+        mShowInstructions = (Button) findViewById(R.id.btn_show_instructions);
         mAdvance = (Button) findViewById(R.id.btn_advance_exercise);
 
         exerciseNameTextView = (TextView) findViewById(R.id.exercise_name);
@@ -77,13 +80,22 @@ public class WorkoutActivity extends AppCompatActivity {
                 "mass under the bar. Just make sure you're not violently swinging them upwards.");
 
         exerciseList = new ArrayList<>();
-        exerciseList.add(new Exercise("Push-Up", 3, 8, 90, new Exercise.Instruction(pushUpCues)));  // Test exercise
-        exerciseList.add(new Exercise("Pull-Up", 3, 5, 90, new Exercise.Instruction(pullUpCues)));  // Test exercise
+        exerciseList.add(new Exercise("Push-Up", 3, 8, 90, "IODxDxX7oi4", new Exercise.Instruction(pushUpCues)));  // Test exercise
+        exerciseList.add(new Exercise("Pull-Up", 3, 5, 90, "eGo4IYlbE5g", new Exercise.Instruction(pullUpCues)));  // Test exercise
+
+        if (savedInstanceState != null) {
+            currentExerciseIndex = savedInstanceState.getInt("currentExerciseIndex");
+            currSet = savedInstanceState.getInt("currSet");
+            currRep = savedInstanceState.getInt("currRep");
+        }
+
         updateExercise();
 
         mAdvance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currSet = 0;
+                currRep = 0;
                 currentExerciseIndex++;
                 if (currentExerciseIndex < exerciseList.size()) {
                     updateExercise();
@@ -99,9 +111,18 @@ public class WorkoutActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//    int currentExerciseIndex = 0;
+//    int currSet = 0;
+//    int currRep = 0;
+        outState.putInt("currentExerciseIndex", currentExerciseIndex);
+        outState.putInt("currSet", currSet);
+        outState.putInt("currRep", currRep);
+        super.onSaveInstanceState(outState);
+    }
+
     private void updateExercise() {
-        currSet = 0;
-        currRep = 0;
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         String exerciseName = currentExercise.getExerciseName();
@@ -152,6 +173,18 @@ public class WorkoutActivity extends AppCompatActivity {
                 repTextView.setText(String.format(Locale.getDefault(), "Reps: %01d/%01d", currRep, reps));
             }
         });
+
+        mShowInstructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WorkoutActivity.this, InstructionActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    public Exercise getCurrExercise(){
+        return exerciseList.get(currentExerciseIndex);
     }
 
 
