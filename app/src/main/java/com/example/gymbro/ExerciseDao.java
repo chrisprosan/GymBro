@@ -25,6 +25,7 @@ public interface ExerciseDao {
     @Delete
     void delete(ExerciseDB exerciseDB);
 
+    //random comment
     @Query("SELECT * FROM EXERCISE WHERE id = :id")
     ExerciseDB loadExerciseById(int id);
 }
