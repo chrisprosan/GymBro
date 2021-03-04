@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GymBro">
-        <activity android:name=".SetUpWorkouts"></activity>
+        <activity android:name=".AppExecutors"></activity>
+        <activity android:name=".ExerciseDao" />
+        <activity android:name=".AppDatabase" />
+        <activity android:name=".SetUpWorkouts" />
         <activity android:name=".SetUpWorkoutsSchedule" />
         <activity android:name=".AddExerciseActivity" />
         <activity android:name=".WorkoutActivity" />

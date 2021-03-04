@@ -3,6 +3,8 @@ package com.example.gymbro;
 import java.util.ArrayList;
 
 public class Exercise {
+
+
     private final String exerciseName;
     private int sets;
     private int reps;
