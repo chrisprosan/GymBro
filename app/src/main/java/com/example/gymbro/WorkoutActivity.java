@@ -34,6 +34,8 @@ public class WorkoutActivity extends AppCompatActivity {
     int currRep = 0;
     ArrayList<Exercise> exerciseList;
 
+    CountDownTimer countDownTimer;
+
     static final String END_WORKOUT = "End Workout";
 
     @Override
@@ -90,6 +92,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     }
                 }
                 else {
+                    app_context.showToast("Workout completed!");
                     finish();
                 }
             }
@@ -97,6 +100,8 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void updateExercise() {
+        currSet = 0;
+        currRep = 0;
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         String exerciseName = currentExercise.getExerciseName();
@@ -112,7 +117,10 @@ public class WorkoutActivity extends AppCompatActivity {
         timerCountTextView.setText(timer);
         long milliseconds = TimeUnit.SECONDS.toMillis(duration);
 
-        mStartTimer.setOnClickListener(v -> new CountDownTimer(milliseconds, 1000) {
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(milliseconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long seconds1 = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
@@ -125,7 +133,9 @@ public class WorkoutActivity extends AppCompatActivity {
                 String timer1 = "00:00";
                 timerCountTextView.setText(timer1);
             }
-        }.start());
+        };
+
+        mStartTimer.setOnClickListener(v -> countDownTimer.start());
 
         mSetIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
