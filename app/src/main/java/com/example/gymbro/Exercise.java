@@ -1,17 +1,37 @@
 package com.example.gymbro;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Fts4;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
+@Fts4
+@Entity(tableName = "exercise")
 public class Exercise {
 
+    @PrimaryKey
+    public int id;
 
-    private final String exerciseName;
-    private int sets;
-    private int reps;
-    private long duration; // in seconds
-    private String vidId;
-    private final Instruction instruction;
+    @ColumnInfo(name = "exercise_name")
+    public final String exerciseName;
+
+    @ColumnInfo(name = "sets")
+    public int sets;
+
+    @ColumnInfo(name = "reps")
+    public int reps;
+
+    @ColumnInfo(name = "duration")
+    public long duration; // in seconds
+
+    @ColumnInfo(name = "vidId")
+    public String vidId;
+
+    @ColumnInfo(name = "instruction")
+    public final Instruction instruction;
 
     public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, Instruction instruction) {
         this.exerciseName = exerciseName;

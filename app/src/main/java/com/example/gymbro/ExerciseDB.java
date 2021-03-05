@@ -4,15 +4,18 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Locale;
+
 @Entity(tableName = "exercise")
 public class ExerciseDB {
     @PrimaryKey(autoGenerate = true)
-    int id;
-    String workoutName;
-    int sets;
-    int reps;
-    long duration;
-    String imgId;
+    public int id;
+
+    public String workoutName;
+    public int sets;
+    public int reps;
+    public long duration;
+    public String imgId;
 
     @Ignore
     public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId) {
@@ -78,5 +81,13 @@ public class ExerciseDB {
 
     public void setImgId(String imgId) {
         this.imgId = imgId;
+    }
+
+    public String toString() {
+        return String.format(Locale.getDefault(), "Workout name: %s\n" +
+                            "Recommended sets: %d\n" +
+                            "Recommended reps: %d\n" +
+                            "Duration: %d\n" +
+                            "Image ID: %s", workoutName, sets, reps, duration, imgId);
     }
 }
