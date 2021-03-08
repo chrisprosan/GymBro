@@ -24,6 +24,7 @@ public class GymBroApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Simple code to test Room database. Should rely on a handler instead.
         new Thread(() -> {
             Log.i("Chris", "Creating database");
             AppDatabase db = AppDatabase.getInstance(this);
