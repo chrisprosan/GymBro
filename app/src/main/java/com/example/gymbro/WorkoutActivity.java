@@ -1,44 +1,51 @@
 package com.example.gymbro;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.icu.number.NumberFormatter;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Load in an Exercise object and extract variables from it
- * Expected variables: Name, Instructions, boolTimeBased, Reps, Sets, duration
- */
 public class WorkoutActivity extends AppCompatActivity {
+
     GymBroApplication app_context;
     Button mStartTimer;
     Button mSetIncrement;
-    Button mRepIncrement;
+    //    Button mRepIncrement;
     Button mShowInstructions;
-    Button mAdvance;
+//    Button mAdvance;
 
     TextView exerciseNameTextView;
     TextView timerCountTextView;
     TextView setTextView;
-    TextView repTextView;
+    TextView rest;
+
+    NumberPicker repCount;
 
     int currentExerciseIndex = 0;
     int currSet = 0;
     int currRep = 0;
+    int maxSet = 0;
     ArrayList<Exercise> exerciseList;
 
     CountDownTimer countDownTimer;
 
-    static final String END_WORKOUT = "End Workout";
+    FloatingActionButton nextSet;
+
+    private static final int REST_DURATION = 90; //seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +56,15 @@ public class WorkoutActivity extends AppCompatActivity {
 
         mStartTimer = (Button) findViewById(R.id.btn_timer_start);
         mSetIncrement = (Button) findViewById(R.id.btn_set_increment);
-        mRepIncrement = (Button) findViewById(R.id.btn_rep_increment);
         mShowInstructions = (Button) findViewById(R.id.btn_show_instructions);
-        mAdvance = (Button) findViewById(R.id.btn_advance_exercise);
 
         exerciseNameTextView = (TextView) findViewById(R.id.exercise_name);
         timerCountTextView = (TextView) findViewById(R.id.timer_count);
         setTextView = (TextView) findViewById(R.id.set_count);
-        repTextView = (TextView) findViewById(R.id.rep_count);
+        rest = (TextView) findViewById(R.id.rest);
+
+        nextSet = (FloatingActionButton) findViewById(R.id.fab);
+        repCount = (NumberPicker) findViewById(R.id.rep_count);
 
         ArrayList<String> pushUpCues = new ArrayList<>();
         pushUpCues.add("Body in a straight line from head to toe: don't let the hips sag!");
@@ -80,8 +88,8 @@ public class WorkoutActivity extends AppCompatActivity {
                 "mass under the bar. Just make sure you're not violently swinging them upwards.");
 
         exerciseList = new ArrayList<>();
-        exerciseList.add(new Exercise("Push-Up", 3, 8, 90, "IODxDxX7oi4", new Exercise.Instruction(pushUpCues)));  // Test exercise
-        exerciseList.add(new Exercise("Pull-Up", 3, 5, 90, "eGo4IYlbE5g", new Exercise.Instruction(pullUpCues)));  // Test exercise
+        exerciseList.add(new Exercise("Push-Up", 3, 8, 0, "IODxDxX7oi4", new Exercise.Instruction(pushUpCues)));  // Test exercise
+        exerciseList.add(new Exercise("Pull-Up", 3, 5, 0, "eGo4IYlbE5g", new Exercise.Instruction(pullUpCues)));  // Test exercise
 
         if (savedInstanceState != null) {
             currentExerciseIndex = savedInstanceState.getInt("currentExerciseIndex");
@@ -91,31 +99,45 @@ public class WorkoutActivity extends AppCompatActivity {
 
         updateExercise();
 
-        mAdvance.setOnClickListener(new View.OnClickListener() {
+
+        nextSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currSet = 0;
-                currRep = 0;
-                currentExerciseIndex++;
-                if (currentExerciseIndex < exerciseList.size()) {
-                    updateExercise();
-                    if (currentExerciseIndex == exerciseList.size() - 1) {
-                        mAdvance.setText(END_WORKOUT);
+                if (currSet == maxSet) {
+                    nextSet.setImageResource(R.drawable.round_play_arrow_black_18dp);
+                    currSet = 0;
+                    currRep = 0;
+                    currentExerciseIndex++;
+                    if (currentExerciseIndex < exerciseList.size()) {
+                        updateExercise();
+                    }
+                    else {
+                        app_context.showToast("Workout completed!");
+                        finish();
+                    }
+                } else {
+                    currSet++;
+                    setTextView.setText(String.format(Locale.getDefault(), "Sets: %01d/%01d", currSet, maxSet));
+                    if (currSet == maxSet) {
+                        //Change icon to tick
+                        nextSet.setImageResource(R.drawable.round_check_black_18dp);
                     }
                 }
-                else {
-                    app_context.showToast("Workout completed!");
-                    finish();
-                }
+            }
+        });
+
+        repCount.setMinValue(0);
+        repCount.setMaxValue(100);
+        repCount.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return value + "x";
             }
         });
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-//    int currentExerciseIndex = 0;
-//    int currSet = 0;
-//    int currRep = 0;
         outState.putInt("currentExerciseIndex", currentExerciseIndex);
         outState.putInt("currSet", currSet);
         outState.putInt("currRep", currRep);
@@ -126,13 +148,20 @@ public class WorkoutActivity extends AppCompatActivity {
         Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
         String exerciseName = currentExercise.getExerciseName();
-        int sets = currentExercise.getSets();
+        maxSet = currentExercise.getSets();
         int reps = currentExercise.getReps();
         long duration = currentExercise.getDuration();
 
         exerciseNameTextView.setText(exerciseName);
-        setTextView.setText(String.format(Locale.getDefault(), "Sets: %01d/%01d", currSet, sets));
-        repTextView.setText(String.format(Locale.getDefault(), "Reps: %01d/%01d", currRep, reps));
+        setTextView.setText(String.format(Locale.getDefault(), "Sets: %01d/%01d", currSet, maxSet));
+//        repTextView.setText(String.format(Locale.getDefault(), "Reps: %01d/%01d", currRep, reps));
+
+        if (duration == 0) {
+            duration = REST_DURATION;
+            rest.setVisibility(View.VISIBLE);
+        } else {
+            rest.setVisibility(View.GONE);
+        }
 
         String timer = String.format(Locale.getDefault(), "%02d:%02d", (duration % 3600) / 60, (duration % 60));
         timerCountTextView.setText(timer);
@@ -161,16 +190,11 @@ public class WorkoutActivity extends AppCompatActivity {
         mSetIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currSet++;
-                setTextView.setText(String.format(Locale.getDefault(), "Sets: %01d/%01d", currSet, sets));
-            }
-        });
-
-        mRepIncrement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currRep++;
-                repTextView.setText(String.format(Locale.getDefault(), "Reps: %01d/%01d", currRep, reps));
+                maxSet++;
+                setTextView.setText(String.format(Locale.getDefault(), "Sets: %01d/%01d", currSet, maxSet));
+                if (currSet != maxSet) {
+                    nextSet.setImageResource(R.drawable.round_play_arrow_black_18dp);
+                }
             }
         });
 
