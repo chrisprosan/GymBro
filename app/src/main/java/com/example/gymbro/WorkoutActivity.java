@@ -39,7 +39,7 @@ public class WorkoutActivity extends AppCompatActivity {
     int currSet = 0;
     int currRep = 0;
     int maxSet = 0;
-    ArrayList<Exercise> exerciseList;
+    ArrayList<ExerciseDB> exerciseList;
 
     CountDownTimer countDownTimer;
 
@@ -88,8 +88,8 @@ public class WorkoutActivity extends AppCompatActivity {
                 "mass under the bar. Just make sure you're not violently swinging them upwards.");
 
         exerciseList = new ArrayList<>();
-        exerciseList.add(new Exercise("Push-Up", 3, 8, 0, "IODxDxX7oi4", new Exercise.Instruction(pushUpCues)));  // Test exercise
-        exerciseList.add(new Exercise("Pull-Up", 3, 5, 0, "eGo4IYlbE5g", new Exercise.Instruction(pullUpCues)));  // Test exercise
+        exerciseList.add(new ExerciseDB("Push-Up", 3, 8, 0, "IODxDxX7oi4", pushUpCues));  // Test exercise
+        exerciseList.add(new ExerciseDB("Pull-Up", 3, 5, 0, "eGo4IYlbE5g", pullUpCues));  // Test exercise
 
         if (savedInstanceState != null) {
             currentExerciseIndex = savedInstanceState.getInt("currentExerciseIndex");
@@ -145,9 +145,9 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void updateExercise() {
-        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
+        ExerciseDB currentExercise = exerciseList.get(currentExerciseIndex);
 
-        String exerciseName = currentExercise.getExerciseName();
+        String exerciseName = currentExercise.getWorkoutName();
         maxSet = currentExercise.getSets();
         int reps = currentExercise.getReps();
         long duration = currentExercise.getDuration();
@@ -207,7 +207,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
     }
 
-    public Exercise getCurrExercise(){
+    public ExerciseDB getCurrExercise(){
         return exerciseList.get(currentExerciseIndex);
     }
 

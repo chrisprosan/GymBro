@@ -25,22 +25,21 @@ public class ExerciseDB {
     public ArrayList<String> exercisesInstr;
 
     @Ignore
-    public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId, String vidId, ArrayList<String> exercisesInstr) {
+    public ExerciseDB(int id, String workoutName, int sets, int reps, long duration, String vidId, ArrayList<String> exercisesInstr) {
         this.workoutName = workoutName;
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
-        this.imgId = imgId;
         this.vidId = vidId;
         this.exercisesInstr = exercisesInstr;
     }
 
-    public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId, ArrayList<String> exercisesInstr) {
+    public ExerciseDB(String workoutName, int sets, int reps, long duration, String vidId, ArrayList<String> exercisesInstr) {
         this.workoutName = workoutName;
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
-        this.imgId = imgId;
+        this.vidId = vidId;
         this.exercisesInstr = exercisesInstr;
     }
 
@@ -52,7 +51,7 @@ public class ExerciseDB {
         this.id = id;
     }
 
-    public String workoutName() {
+    public String getWorkoutName() {
         return workoutName;
     }
 
@@ -84,16 +83,23 @@ public class ExerciseDB {
         this.duration = duration;
     }
 
-    public String getImgId() {
-        return imgId;
+    public String getVidId() {
+        return vidId;
     }
 
-    public void setImgId(String imgId) {
-        this.imgId = imgId;
+    public void setVidId(String imgId) {
+        this.vidId = vidId;
     }
 
-    public ArrayList<String> exercisesInstr() {
-        return exercisesInstr;
+    public String getCues() {
+        StringBuilder formattedCues = new StringBuilder();
+        int index = 0;
+        for (String cue : this.exercisesInstr) {
+            index++;
+            formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
+        }
+
+        return formattedCues.toString();
     }
 
 
