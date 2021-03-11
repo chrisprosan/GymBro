@@ -33,14 +33,6 @@ public class Exercise {
     @ColumnInfo(name = "instruction")
     public final Instruction instruction;
 
-    public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, Instruction instruction) {
-        this.exerciseName = exerciseName;
-        this.sets = sets;
-        this.reps = reps;
-        this.duration = duration;
-        this.vidId = vidId;
-        this.instruction = instruction;
-    }
 
     public static class Instruction{
         private final ArrayList<String> cues;
@@ -53,6 +45,16 @@ public class Exercise {
             return cues;
         }
     }
+
+    public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, Instruction instruction) {
+        this.exerciseName = exerciseName;
+        this.sets = sets;
+        this.reps = reps;
+        this.duration = duration;
+        this.vidId = vidId;
+        this.instruction = instruction;
+    }
+
 
     public String getCues() {
         StringBuilder formattedCues = new StringBuilder();

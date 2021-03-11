@@ -67,8 +67,10 @@ public class GymBroApplication extends Application {
 //        exerciseList.add(new Exercise("Push-Up", 3, 8, 90, "IODxDxX7oi4", new Exercise.Instruction(pushUpCues)));  // Test exercise
 //        exerciseList.add(new Exercise("Pull-Up", 3, 5, 90, "eGo4IYlbE5g", new Exercise.Instruction(pullUpCues)));  // Test exercise
 
-        exerciseList.add(new ExerciseDB("Push-Up", 3, 8, 90, "IODxDxX7oi4"));  // Test exercise
-        exerciseList.add(new ExerciseDB("Pull-Up", 3, 5, 90, "eGo4IYlbE5g"));  // Test exercise
+
+
+        exerciseList.add(new ExerciseDB("Push-Up", 3, 8, 90, "IODxDxX7oi4", pushUpCues));  // Test exercise
+        exerciseList.add(new ExerciseDB("Pull-Up", 3, 5, 90, "eGo4IYlbE5g", pullUpCues));  // Test exercise
         return exerciseList;
     }
 

@@ -4,10 +4,15 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.LineNumberInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
 
 @Entity(tableName = "exercise")
 public class ExerciseDB {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -16,23 +21,27 @@ public class ExerciseDB {
     public int reps;
     public long duration;
     public String imgId;
+    public String vidId;
+    public ArrayList<String> exercisesInstr;
 
     @Ignore
-    public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId) {
+    public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId, String vidId, ArrayList<String> exercisesInstr) {
         this.workoutName = workoutName;
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
         this.imgId = imgId;
+        this.vidId = vidId;
+        this.exercisesInstr = exercisesInstr;
     }
 
-    public ExerciseDB(int id, String workoutName, int sets, int reps, long duration, String imgId) {
-        this.id = id;
+    public ExerciseDB(String workoutName, int sets, int reps, long duration, String imgId, ArrayList<String> exercisesInstr) {
         this.workoutName = workoutName;
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
         this.imgId = imgId;
+        this.exercisesInstr = exercisesInstr;
     }
 
     public int getId() {
@@ -83,11 +92,18 @@ public class ExerciseDB {
         this.imgId = imgId;
     }
 
+    public ArrayList<String> exercisesInstr() {
+        return exercisesInstr;
+    }
+
+
     public String toString() {
         return String.format(Locale.getDefault(), "Workout name: %s\n" +
                             "Recommended sets: %d\n" +
                             "Recommended reps: %d\n" +
                             "Duration: %d\n" +
-                            "Image ID: %s", workoutName, sets, reps, duration, imgId);
+                            "Image ID: %s\n" +
+                            "Instructions: %s ", workoutName, sets, reps, duration, imgId, exercisesInstr
+        );
     }
 }
