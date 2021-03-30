@@ -24,9 +24,7 @@ public class WorkoutActivity extends AppCompatActivity {
     GymBroApplication app_context;
     Button mStartTimer;
     Button mSetIncrement;
-    //    Button mRepIncrement;
     Button mShowInstructions;
-//    Button mAdvance;
 
     TextView exerciseNameTextView;
     TextView timerCountTextView;
@@ -159,33 +157,36 @@ public class WorkoutActivity extends AppCompatActivity {
         if (duration == 0) {
             duration = REST_DURATION;
             rest.setVisibility(View.VISIBLE);
-        } else {
+
+        } else {  // Time-based exercises (i.e: planks, dead bugs...)
             rest.setVisibility(View.GONE);
+            timerCountTextView.setVisibility(View.VISIBLE);
+            mStartTimer.setVisibility(View.VISIBLE);
+
+            String timer = String.format(Locale.getDefault(), "%02d:%02d", (duration % 3600) / 60, (duration % 60));
+            timerCountTextView.setText(timer);
+            long milliseconds = TimeUnit.SECONDS.toMillis(duration);
+
+            if (countDownTimer != null)
+                countDownTimer.cancel();
+
+            countDownTimer = new CountDownTimer(milliseconds, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    long seconds1 = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+                    String timer1 = String.format(Locale.getDefault(), "%02d:%02d", (seconds1 % 3600) / 60, (seconds1 % 60));
+                    timerCountTextView.setText(timer1);
+                }
+
+                @Override
+                public void onFinish() {
+                    String timer1 = "00:00";
+                    timerCountTextView.setText(timer1);
+                }
+            };
+
+            mStartTimer.setOnClickListener(v -> countDownTimer.start());
         }
-
-        String timer = String.format(Locale.getDefault(), "%02d:%02d", (duration % 3600) / 60, (duration % 60));
-        timerCountTextView.setText(timer);
-        long milliseconds = TimeUnit.SECONDS.toMillis(duration);
-
-        if (countDownTimer != null)
-            countDownTimer.cancel();
-
-        countDownTimer = new CountDownTimer(milliseconds, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long seconds1 = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
-                String timer1 = String.format(Locale.getDefault(), "%02d:%02d", (seconds1 % 3600) / 60, (seconds1 % 60));
-                timerCountTextView.setText(timer1);
-            }
-
-            @Override
-            public void onFinish() {
-                String timer1 = "00:00";
-                timerCountTextView.setText(timer1);
-            }
-        };
-
-        mStartTimer.setOnClickListener(v -> countDownTimer.start());
 
         mSetIncrement.setOnClickListener(new View.OnClickListener() {
             @Override

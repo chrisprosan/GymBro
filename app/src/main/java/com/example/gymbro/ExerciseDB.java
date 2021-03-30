@@ -1,5 +1,6 @@
 package com.example.gymbro;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -20,7 +21,6 @@ public class ExerciseDB {
     public int sets;
     public int reps;
     public long duration;
-    public String imgId;
     public String vidId;
     public ArrayList<String> exercisesInstr;
 
@@ -39,6 +39,15 @@ public class ExerciseDB {
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
+        this.vidId = vidId;
+        this.exercisesInstr = exercisesInstr;
+    }
+    @Ignore
+    public ExerciseDB(String workoutName, int sets, int reps, String vidId, ArrayList<String> exercisesInstr) {
+        this.workoutName = workoutName;
+        this.sets = sets;
+        this.reps = reps;
+        this.duration = 0;
         this.vidId = vidId;
         this.exercisesInstr = exercisesInstr;
     }
@@ -109,7 +118,7 @@ public class ExerciseDB {
                             "Recommended reps: %d\n" +
                             "Duration: %d\n" +
                             "Image ID: %s\n" +
-                            "Instructions: %s ", workoutName, sets, reps, duration, imgId, exercisesInstr
+                            "Instructions: %s ", workoutName, sets, reps, duration, vidId, exercisesInstr
         );
     }
 }

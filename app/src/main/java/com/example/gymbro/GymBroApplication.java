@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,26 +21,58 @@ public class GymBroApplication extends Application {
     public HomeActivity home_context = null;
     public WorkoutActivity workout_context = null;
     public InstructionActivity instruction_context = null;
+    public SetUpWorkoutsSchedule setup_workout_schedule_context = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         // Simple code to test Room database. Should rely on a handler instead.
-        new Thread(() -> {
+        new InsertToDatabase().execute();
+    }
+
+    /**
+     * Note: The database is actually saved locally on the device.
+     * Meaning, we only need to insert the sample data ONCE.
+     * Even after clearing all exercises from the database, their IDs are saved.
+     */
+    class InsertToDatabase extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
             Log.i("Chris", "Creating database");
-            AppDatabase db = AppDatabase.getInstance(this);
+            AppDatabase db = AppDatabase.getInstance(GymBroApplication.this);
             Log.i("Chris", "Created database db");
             ExerciseDao exerciseDao = db.exerciseDao();
             Log.i("Chris", "Inserting sample data");
-            exerciseDao.insertAllExercises(generateTestExercises());
-            Log.i("Chris", "Inserted sample data");
-            Log.i("Chris", "Retrieving sample data");
             List<ExerciseDB> exerciseDBList = exerciseDao.loadAllExercises();
+
+            if (exerciseDBList.size() != 0) { // Check if
+                exerciseDao.deleteAll(exerciseDBList);
+            }
+
+            exerciseDao.insertAllExercises(generateTestExercises());
+
+            Log.i("Chris", "Inserted sample data");
+
+            exerciseDBList = exerciseDao.loadAllExercises();
             Log.i("Chris", "Retrieved sample data");
+            Log.i("Chris", "exerciseDBList size: " + exerciseDBList.size());
             for (ExerciseDB exerciseDB : exerciseDBList) {
                 Log.i("Chris", ""+ exerciseDB);
             }
-        }).start();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+        }
     }
 
     public List<ExerciseDB> generateTestExercises() {
@@ -70,8 +103,8 @@ public class GymBroApplication extends Application {
 
 
 
-        exerciseList.add(new ExerciseDB("Push-Up", 3, 8, 90, "IODxDxX7oi4", pushUpCues));  // Test exercise
-        exerciseList.add(new ExerciseDB("Pull-Up", 3, 5, 90, "eGo4IYlbE5g", pullUpCues));  // Test exercise
+        exerciseList.add(new ExerciseDB(0,"Push-Up", 3, 8, 90, "IODxDxX7oi4", pushUpCues));  // Test exercise
+        exerciseList.add(new ExerciseDB(1,"Pull-Up", 3, 5, 90, "eGo4IYlbE5g", pullUpCues));  // Test exercise
         return exerciseList;
     }
 
