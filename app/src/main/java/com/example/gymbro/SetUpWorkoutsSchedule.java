@@ -2,7 +2,10 @@ package com.example.gymbro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SetUpWorkoutsSchedule extends AppCompatActivity {
     GymBroApplication app_context;
@@ -53,7 +57,6 @@ public class SetUpWorkoutsSchedule extends AppCompatActivity {
                 boolean active = false;
                 @Override
                 public void onClick(View v) {
-                    Log.i("Chris", "day onclick");
                     if (active) {
                         v.setBackgroundColor(defaultColor);
                     } else {
@@ -73,5 +76,7 @@ public class SetUpWorkoutsSchedule extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
