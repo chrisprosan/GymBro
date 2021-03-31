@@ -1,38 +1,23 @@
 package com.example.gymbro;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Fts4;
-import androidx.room.PrimaryKey;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
-@Fts4
-@Entity(tableName = "exercise")
 public class Exercise {
 
-    @PrimaryKey
     public int id;
 
-    @ColumnInfo(name = "exercise_name")
     public final String exerciseName;
 
-    @ColumnInfo(name = "sets")
     public int sets;
 
-    @ColumnInfo(name = "reps")
     public int reps;
 
-    @ColumnInfo(name = "duration")
-    public long duration; // in seconds
+    public Long duration; // in seconds
 
-    @ColumnInfo(name = "vidId")
     public String vidId;
 
-    @ColumnInfo(name = "instruction")
-    public final Instruction instruction;
-
+    public final ArrayList<String> instruction;
 
     public static class Instruction{
         private final ArrayList<String> cues;
@@ -46,7 +31,9 @@ public class Exercise {
         }
     }
 
-    public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, Instruction instruction) {
+
+
+    public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, ArrayList<String> instruction) {
         this.exerciseName = exerciseName;
         this.sets = sets;
         this.reps = reps;
@@ -55,17 +42,21 @@ public class Exercise {
         this.instruction = instruction;
     }
 
-
-    public String getCues() {
-        StringBuilder formattedCues = new StringBuilder();
-        int index = 0;
-        for (String cue : this.instruction.getCues()) {
-            index++;
-            formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
-        }
-
-        return formattedCues.toString();
+    public Exercise(String exerciseName, String vidId, ArrayList<String> instruction) {
+        this.exerciseName = exerciseName;
+        this.vidId = vidId;
+        this.instruction = instruction;
     }
+//    public String getCues() {
+//        StringBuilder formattedCues = new StringBuilder();
+//        int index = 0;
+//        for (String cue : this.instruction.getCues()) {
+//            index++;
+//            formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
+//        }
+//
+//        return formattedCues.toString();
+//    }
 
     public void setSets(int sets) {
         this.sets = sets;
@@ -101,7 +92,7 @@ public class Exercise {
 
     public String getVidId() { return vidId; }
 
-    public Instruction getInstruction() {
+    public ArrayList<String> getInstruction() {
         return instruction;
     }
 

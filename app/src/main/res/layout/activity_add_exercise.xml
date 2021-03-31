@@ -1,43 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".AddExerciseActivity">
 
-    <EditText
-        android:id="@+id/exercise_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:hint="Search..."/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="40dp"
-        android:layout_below="@id/exercise_name">
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
+        <EditText
+            android:id="@+id/exercise"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Search for an exercise...." />
 
-        <ListView
-            android:id="@+id/list_exercise"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hardcoded_timer"
-            android:gravity="center_horizontal" />
-
+        <Button
+            android:id="@+id/btnFind"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="onFind"
+            android:text="Search" />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_advance_exercise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_advance_exercise"
-        android:layout_gravity="center"
-        android:layout_alignParentBottom="true"/>
 
-</RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="80dp"
+        android:indeterminate="true"
+        android:max="100"
+        android:minWidth="250dp"
+        android:minHeight="50dp"
+        android:progress="1"
+        android:visibility="invisible" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".AddExerciseActivity">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <EditText-->
+<!--            android:id="@+id/exercise_name"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:hint="Search..."/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnFind"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/search"-->
+<!--            android:onClick="onFind"/>-->
+<!--    </LinearLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_below="@id/exercise_name">-->
+
+
+<!--        <ListView-->
+<!--            android:id="@+id/list_exercise"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/hardcoded_timer"-->
+<!--            android:gravity="center_horizontal" />-->
+
+
+<!--    </LinearLayout>-->
+<!--    <Button-->
+<!--        android:id="@+id/btn_advance_exercise"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/btn_advance_exercise"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_alignParentBottom="true"/>-->
+
+<!--</RelativeLayout>-->
