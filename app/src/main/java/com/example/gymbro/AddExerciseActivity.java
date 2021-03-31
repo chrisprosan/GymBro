@@ -45,7 +45,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         exercise_edit = findViewById(R.id.exercise);
         exercise = exercise_edit.getText().toString().trim();
-//        String output = exercise.substring(0, 1).toUpperCase() + exercise.substring(1);
+        String output = exercise.substring(0, 1).toUpperCase() + exercise.substring(1);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -57,7 +57,7 @@ public class AddExerciseActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 exerciseList.clear();
                 for (DataSnapshot casesSnapshot: dataSnapshot.getChildren()) {
-                    if (String.valueOf(casesSnapshot).contains("Workout=" + exercise)) {
+                    if (String.valueOf(casesSnapshot).contains(output)) {
                         Map<String, String> workout = (Map<String, String>) casesSnapshot.getValue();
                         String name = workout.get("Workout");
                         String step1 = workout.get("Step 1");
