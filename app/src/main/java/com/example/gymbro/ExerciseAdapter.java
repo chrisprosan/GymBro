@@ -2,9 +2,11 @@ package com.example.gymbro;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -31,6 +33,9 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
         this.exerciseList = exerciseList;
     }
 
+
+
+
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -42,8 +47,7 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
 
         Exercise exercises = exerciseList.get(position);
-        name.setText(position + 1 + ": " + exercises.getExerciseName());
-
+        name.setText(exercises.getExerciseName());
 
 
         return listViewItem;
