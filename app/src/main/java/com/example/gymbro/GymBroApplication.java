@@ -25,6 +25,7 @@ public class GymBroApplication extends Application {
     public WorkoutActivity workout_context = null;
     public InstructionActivity instruction_context = null;
     public SetUpWorkoutsSchedule setup_workout_schedule_context = null;
+    public SetUpWorkouts setup_workouts = null;
 
     @Override
     public void onCreate() {
