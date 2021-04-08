@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 
 import java.util.List;
+import java.util.Locale;
 
 public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
@@ -25,15 +26,6 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
         this.exerciseList = exerciseList;
     }
 
-    public ExerciseAdapter(Context context, int resource, List<Exercise> objects, Activity context1, List<Exercise> exerciseList) {
-        super(context, resource, objects);
-        this.context = context1;
-        this.exerciseList = exerciseList;
-    }
-
-
-
-
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,7 +37,8 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
 
         Exercise exercises = exerciseList.get(position);
-        name.setText(exercises.getWorkout());
+        String exercise_list_item = String.format(Locale.getDefault(),"%d. %s", (position + 1), exercises.getWorkout());
+        name.setText(exercise_list_item);
 
 
         return listViewItem;

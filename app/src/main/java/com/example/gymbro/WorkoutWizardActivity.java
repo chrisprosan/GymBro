@@ -3,6 +3,7 @@ package com.example.gymbro;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -126,6 +127,7 @@ public class WorkoutWizardActivity extends AppCompatActivity {
         List<WorkoutSchedule> workouts = home_context.getWorkouts();
         workouts.add(workout_schedule);
         home_context.test();
+        app_context.showToast("Workout schedule created!", Toast.LENGTH_SHORT);
         finish();
     }
 
