@@ -26,13 +26,14 @@ public class GymBroApplication extends Application {
     public InstructionActivity instruction_context = null;
     public SetUpWorkoutsSchedule setup_workout_schedule_context = null;
     public SetUpWorkouts setup_workouts = null;
+    public WorkoutWizardActivity workout_wizard_context = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         // Simple code to test Room database. Should rely on a handler instead.
-        new InsertToDatabase().execute();
+//        new InsertToDatabase().execute();
     }
 
     /**
@@ -112,8 +113,8 @@ public class GymBroApplication extends Application {
         return exerciseList;
     }
 
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void showToast(String message, int length) {
+        Toast.makeText(this, message, length).show();
     }
 
     public void watchYoutubeVideo(Context context, String id){
