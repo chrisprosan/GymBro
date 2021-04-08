@@ -31,7 +31,7 @@ public class AddExerciseActivity extends AppCompatActivity {
     List<Exercise> exerciseList;
     ProgressBar progressBar;
     GymBroApplication appContext;
-    SetUpWorkouts setUpWorkoutsContext;
+    SetUpWorkoutsFragment setUpWorkoutsFragmentContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,6 @@ public class AddExerciseActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Exercise e = exerciseList.get((int) l);
-
 
                         TextView txtview = view.findViewById(R.id.ExerciseName);
                         String name = txtview.getText().toString();
