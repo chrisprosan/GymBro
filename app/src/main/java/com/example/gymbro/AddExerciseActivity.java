@@ -62,29 +62,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 exerciseList.clear();
                 for (DataSnapshot casesSnapshot : dataSnapshot.getChildren()) {
                     if (String.valueOf(casesSnapshot).contains(output)) {
-                        Map<String, String> workout = (Map<String, String>) casesSnapshot.getValue();
-                        String name = workout.get("Workout");
-                        String step1 = workout.get("Step 1");
-                        String step2 = workout.get("Step 2");
-                        String step3 = workout.get("Step 3");
-                        String step4 = workout.get("Step 4");
-                        String step5 = workout.get("Step 5");
-                        String step6 = workout.get("Step 6");
-                        ArrayList<String> instructions = new ArrayList<>();
-                        instructions.add(step1);
-                        instructions.add(step2);
-                        instructions.add(step3);
-                        instructions.add(step4);
-                        instructions.add(step5);
-                        instructions.add(step6);
-
-//                        int sets = workout.get("Sets");
-//                        int reps = workout.get("Reps");
-//                        long duration = workout.get("Duration");
-                        String vidId = workout.get("Vid Id");
-
-
-                        Exercise exercise = new Exercise(name, vidId, instructions);
+                        Exercise exercise = dataSnapshot.getValue(Exercise.class);
 
                         exerciseList.add(exercise);
 
