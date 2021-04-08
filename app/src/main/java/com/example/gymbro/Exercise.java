@@ -1,44 +1,62 @@
 package com.example.gymbro;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Exercise {
 
     public int id;
+
     public final String exerciseName;
+
     public int sets;
+
     public int reps;
-    public long duration; // in seconds
-    public String video_id;
-    public final String[] instructions;
 
-    private static final int DEFAULT_SETS = 3;
-    private static final int DEFAULT_REPS = 8;
+    public Long duration; // in seconds
 
-    public Exercise(String exerciseName, long duration, String video_id, String[] instructions) {
+    public String vidId;
+
+    public final ArrayList<String> instruction;
+
+    public static class Instruction{
+        private final ArrayList<String> cues;
+
+        public Instruction(ArrayList<String> cues) {
+            this.cues = cues;
+        }
+
+        public ArrayList<String> getCues() {
+            return cues;
+        }
+    }
+
+
+
+    public Exercise(String exerciseName, int sets, int reps, long duration, String vidId, ArrayList<String> instruction) {
         this.exerciseName = exerciseName;
-        this.sets = DEFAULT_SETS;
+        this.sets = sets;
+        this.reps = reps;
         this.duration = duration;
-        if (this.duration == 0) {  // Rep-based exercises
-            this.reps = DEFAULT_REPS;
-        } else {  // Time-based exercises
-            this.reps = 0;
-        }
-        this.video_id = video_id;  // Can be null
-        this.instructions = instructions;
+        this.vidId = vidId;
+        this.instruction = instruction;
     }
 
-
-    public String getCues() {
-        StringBuilder formattedCues = new StringBuilder();
-        int index = 0;
-        for (String cue : this.instructions) {
-            index++;
-            formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
-        }
-
-        return formattedCues.toString();
+    public Exercise(String exerciseName, String vidId, ArrayList<String> instruction) {
+        this.exerciseName = exerciseName;
+        this.vidId = vidId;
+        this.instruction = instruction;
     }
+//    public String getCues() {
+//        StringBuilder formattedCues = new StringBuilder();
+//        int index = 0;
+//        for (String cue : this.instruction.getCues()) {
+//            index++;
+//            formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
+//        }
+//
+//        return formattedCues.toString();
+//    }
 
     public void setSets(int sets) {
         this.sets = sets;
@@ -52,8 +70,8 @@ public class Exercise {
         this.duration = duration;
     }
 
-    public void setVideo_id(String video_id) {
-        this.video_id = video_id;
+    public void setVidId(String vidId) {
+        this.vidId = vidId;
     }
 
     public String getExerciseName() {
@@ -72,10 +90,10 @@ public class Exercise {
         return duration;
     }
 
-    public String getVideo_id() { return video_id; }
+    public String getVidId() { return vidId; }
 
-    public String[] getInstructions() {
-        return instructions;
+    public ArrayList<String> getInstruction() {
+        return instruction;
     }
 
 }

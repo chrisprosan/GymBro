@@ -28,7 +28,9 @@ public class HomeActivity extends AppCompatActivity {
         mCreateWorkoutSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, SetUpWorkouts.class);
+//                Intent i = new Intent(HomeActivity.this, SetUpWorkouts.class);
+//                startActivity(i);
+                Intent i = new Intent(HomeActivity.this, WorkoutWizardActivity.class);
                 startActivity(i);
             }
         });

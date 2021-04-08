@@ -19,8 +19,6 @@ import java.util.Calendar;
 
 public class SetUpWorkoutsSchedule extends AppCompatActivity {
     GymBroApplication app_context;
-    NumberPicker hour;
-    NumberPicker minutes;
     Button mNext;
 
     @Override
