@@ -31,13 +31,14 @@ public class AddExerciseActivity extends AppCompatActivity {
     List<Exercise> exerciseList;
     ProgressBar progressBar;
     GymBroApplication appContext;
-    SetUpWorkouts setUpWorkoutsContext;
+    WorkoutWizardActivity workout_wizard_context = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
         appContext = (GymBroApplication) getApplicationContext();
+        workout_wizard_context = appContext.workout_wizard_context;
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         list = findViewById((R.id.list_view));
@@ -50,7 +51,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         exercise_edit = findViewById(R.id.exercise);
         exercise = exercise_edit.getText().toString().trim();
-        String output = exercise.substring(0, 1).toUpperCase() + exercise.substring(1);
+        String output = exercise.toLowerCase();
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -61,31 +62,25 @@ public class AddExerciseActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 exerciseList.clear();
                 for (DataSnapshot casesSnapshot : dataSnapshot.getChildren()) {
-                    if (String.valueOf(casesSnapshot).contains(output)) {
-                        Exercise exercise = dataSnapshot.getValue(Exercise.class);
+                    Exercise exercise = casesSnapshot.getValue(Exercise.class);
+                    if (exercise.getWorkout().toLowerCase().contains(output))
                         exerciseList.add(exercise);
-
-                    }
 
                 }
                 if (exerciseList.size() == 0) {
-                    Toast.makeText(AddExerciseActivity.this, "No exercise was found. ", Toast.LENGTH_LONG).show();
+                    appContext.showToast("No exercise was found. ", Toast.LENGTH_LONG);
                 }
 
                 ExerciseAdapter adapter = new ExerciseAdapter(AddExerciseActivity.this, exerciseList);
                 list.setAdapter(adapter);
                 progressBar.setVisibility(View.INVISIBLE);
 
-
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Exercise e = exerciseList.get((int) l);
-
-
-                        TextView txtview = view.findViewById(R.id.ExerciseName);
-                        String name = txtview.getText().toString();
-                        appContext.setup_workouts.exerciseNames.add(e);
+                        List<Exercise> exerciseList = workout_wizard_context.getExerciseList();
+                        exerciseList.add(e);
                         finish();
                     }
                 });
@@ -100,5 +95,9 @@ public class AddExerciseActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        appContext = null;
+    }
 }

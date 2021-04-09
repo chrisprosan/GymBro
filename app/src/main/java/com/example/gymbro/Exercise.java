@@ -1,46 +1,53 @@
 package com.example.gymbro;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Exercise {
 
-    public int id;
+    private String Workout;
+    private int sets;
+    private int reps;
+    private int Duration; // in seconds
+    private String Video_id;
+    private List<String> Instructions;
 
-    public String exerciseName;
+    private static final int DEFAULT_SETS = 3;
+    private static final int DEFAULT_REPS = 8;
 
-    public int sets;
+    public Exercise() {}
 
-    public int reps;
-
-    public int duration; // in seconds
-
-    public String vidId;
-
-    public String[] instruction;
-
-
-
-
-    public Exercise() {
+    public Exercise(String Workout, int Duration, String Video_id, List<String> Instructions) {
+        this.Workout = Workout;
+        this.sets = DEFAULT_SETS;
+        this.Duration = Duration;
+        if (this.Duration == 0) {  // Rep-based exercises
+            this.reps = DEFAULT_REPS;
+        } else {  // Time-based exercises
+            this.reps = 0;
+        }
+        this.Video_id = Video_id;  // Can be null
+        this.Instructions = Instructions;
     }
 
-    public Exercise(String Workout, int Duration, String Video_id, String[] Instructions) {
-        this.exerciseName = Workout;
-        this.duration = Duration;
-        this.vidId = Video_id;
-        this.instruction = Instructions;
-    }
 
     public String getCues() {
         StringBuilder formattedCues = new StringBuilder();
         int index = 0;
-        for (String cue : this.instruction) {
+        for (String cue : this.Instructions) {
             index++;
             formattedCues.append(String.format(Locale.getDefault(), "%d: %s\n\n", index, cue));
         }
 
         return formattedCues.toString();
+    }
+
+    public void setWorkout(String Workout) {
+        this.Workout = Workout;
+    }
+
+    public void setInstructions(List<String> Instructions) {
+        this.Instructions = Instructions;
     }
 
     public void setSets(int sets) {
@@ -51,16 +58,16 @@ public class Exercise {
         this.reps = reps;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setDuration(int Duration) {
+        this.Duration = Duration;
     }
 
-    public void setVidId(String vidId) {
-        this.vidId = vidId;
+    public void setVideo_id(String Video_id) {
+        this.Video_id = Video_id;
     }
 
-    public String getExerciseName() {
-        return exerciseName;
+    public String getWorkout() {
+        return Workout;
     }
 
     public int getSets() {
@@ -72,13 +79,13 @@ public class Exercise {
     }
 
     public long getDuration() {
-        return duration;
+        return Duration;
     }
 
-    public String getVidId() { return vidId; }
+    public String getVideo_id() { return Video_id; }
 
-    public String[] getInstruction() {
-        return instruction;
+    public List<String> getInstructions() {
+        return Instructions;
     }
 
 }

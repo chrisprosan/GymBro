@@ -2,11 +2,9 @@ package com.example.gymbro;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -15,6 +13,7 @@ import androidx.annotation.NonNull;
 
 
 import java.util.List;
+import java.util.Locale;
 
 public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
@@ -27,13 +26,6 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
         this.exerciseList = exerciseList;
     }
 
-    public ExerciseAdapter(Context context, int resource, List<Exercise> objects, Activity context1, List<Exercise> exerciseList) {
-        super(context, resource, objects);
-        this.context = context1;
-        this.exerciseList = exerciseList;
-    }
-
-
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,7 +37,8 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
 
         Exercise exercises = exerciseList.get(position);
-        name.setText(exercises.getExerciseName());
+        String exercise_list_item = String.format(Locale.getDefault(),"%d. %s", (position + 1), exercises.getWorkout());
+        name.setText(exercise_list_item);
 
 
         return listViewItem;

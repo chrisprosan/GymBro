@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -110,7 +111,7 @@ public class WorkoutActivity extends AppCompatActivity {
                         updateExercise();
                     }
                     else {
-                        app_context.showToast("Workout completed!");
+                        app_context.showToast("Workout completed!", Toast.LENGTH_SHORT);
                         finish();
                     }
                 } else {

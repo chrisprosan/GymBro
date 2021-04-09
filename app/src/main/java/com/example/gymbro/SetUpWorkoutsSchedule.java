@@ -2,7 +2,10 @@ package com.example.gymbro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,13 +13,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SetUpWorkoutsSchedule extends AppCompatActivity {
     GymBroApplication app_context;
-    NumberPicker hour;
-    NumberPicker minutes;
     Button mNext;
 
     @Override
@@ -53,7 +56,6 @@ public class SetUpWorkoutsSchedule extends AppCompatActivity {
                 boolean active = false;
                 @Override
                 public void onClick(View v) {
-                    Log.i("Chris", "day onclick");
                     if (active) {
                         v.setBackgroundColor(defaultColor);
                     } else {
@@ -67,11 +69,13 @@ public class SetUpWorkoutsSchedule extends AppCompatActivity {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                app_context.showToast("Workout schedule created!");
+                app_context.showToast("Workout schedule created!", Toast.LENGTH_SHORT);
                 Intent i = new Intent(SetUpWorkoutsSchedule.this, HomeActivity.class);
                 startActivity(i);
             }
         });
     }
+
+
 
 }
