@@ -34,8 +34,6 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
     }
 
 
-
-
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

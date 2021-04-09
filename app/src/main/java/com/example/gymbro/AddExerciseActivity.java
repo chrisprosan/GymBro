@@ -63,9 +63,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 for (DataSnapshot casesSnapshot : dataSnapshot.getChildren()) {
                     if (String.valueOf(casesSnapshot).contains(output)) {
                         Exercise exercise = dataSnapshot.getValue(Exercise.class);
-
                         exerciseList.add(exercise);
-
 
                     }
 
