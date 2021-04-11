@@ -37,8 +37,7 @@ public class WorkoutAdapter extends ArrayAdapter<WorkoutSchedule> {
 
 
         WorkoutSchedule workouts = workoutsList.get(position);
-        String exercise_list_item = String.format(Locale.getDefault(),"%d. %s", (position + 1), workouts.toString());
-        name.setText(exercise_list_item);
+        name.setText(workouts.getWorkoutName());
 
 
         return listViewItem;

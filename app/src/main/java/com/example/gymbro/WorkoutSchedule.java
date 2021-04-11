@@ -22,6 +22,10 @@ public class WorkoutSchedule {
         return schedule;
     }
 
+    public String getWorkoutName() {
+        return workoutName;
+    }
+
     @Override
     public String toString() {
         return "WorkoutSchedule{" +

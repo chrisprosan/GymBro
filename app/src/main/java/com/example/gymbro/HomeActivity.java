@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -22,16 +23,30 @@ public class HomeActivity extends AppCompatActivity {
     FloatingActionButton fab;
     public GymBroApplication app_context;
     private final List<WorkoutSchedule> workouts = new ArrayList<>();
+    ListView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         app_context = (GymBroApplication) getApplicationContext();
         app_context.home_context = this;
-
+        list = findViewById((R.id.list_view));
         mCreateWorkoutSchedule = (Button) findViewById(R.id.btn_create_workout_schedule);
         fab = findViewById(R.id.fab);
 
+        WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this, WorkoutActivity.class);
+                WorkoutSchedule w = workouts.get((int) l);
+                intent.putExtra("workoutIndex", (int)l);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -52,12 +67,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
     }
 
