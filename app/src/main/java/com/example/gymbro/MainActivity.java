@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             } else {
-                Toast.makeText(MainActivity.this, "ERROR: Incorrect Username or Password", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "ERROR: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
             }
         });

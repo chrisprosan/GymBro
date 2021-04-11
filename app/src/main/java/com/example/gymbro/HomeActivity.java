@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
         mCreateWorkoutSchedule = (Button) findViewById(R.id.btn_create_workout_schedule);
         fab = findViewById(R.id.fab);
 
+
+
+
         mCreateWorkoutSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +50,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 
