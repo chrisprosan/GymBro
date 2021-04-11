@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -55,5 +56,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void test() {
         Log.i("Chris", ""+ workouts.get(0));
+    }
+
+    public void setup_alarms(WorkoutSchedule workoutSchedule) {
+        List<Calendar> schedule = workoutSchedule.getSchedule();
+        app_context.setUpAlarms(schedule);
     }
 }

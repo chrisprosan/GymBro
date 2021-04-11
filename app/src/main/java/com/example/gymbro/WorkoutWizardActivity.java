@@ -126,7 +126,7 @@ public class WorkoutWizardActivity extends AppCompatActivity {
         schedule = new ArrayList<>();
         List<WorkoutSchedule> workouts = home_context.getWorkouts();
         workouts.add(workout_schedule);
-        home_context.test();
+        home_context.setup_alarms(workout_schedule);
         app_context.showToast("Workout schedule created!", Toast.LENGTH_SHORT);
         finish();
     }

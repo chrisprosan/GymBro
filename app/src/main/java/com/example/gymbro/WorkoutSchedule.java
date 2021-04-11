@@ -12,6 +12,14 @@ public class WorkoutSchedule {
         this.schedule = schedule;
     }
 
+    public List<Exercise> getExerciseList() {
+        return exerciseList;
+    }
+
+    public List<Calendar> getSchedule() {
+        return schedule;
+    }
+
     @Override
     public String toString() {
         return "WorkoutSchedule{" +
