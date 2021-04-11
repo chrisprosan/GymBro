@@ -17,12 +17,15 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class WorkoutActivity extends AppCompatActivity {
 
     GymBroApplication app_context;
+    HomeActivity home_context;
+
     Button mStartTimer;
     Button mSetIncrement;
     Button mShowInstructions;
@@ -38,7 +41,7 @@ public class WorkoutActivity extends AppCompatActivity {
     int currSet = 0;
     int currRep = 0;
     int maxSet = 0;
-    ArrayList<ExerciseDB> exerciseList;
+    List<Exercise> exerciseList;
 
     CountDownTimer countDownTimer;
 
@@ -52,6 +55,8 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         app_context = (GymBroApplication) getApplicationContext();
         app_context.workout_context = this;
+        home_context = app_context.home_context;
+        int index = getIntent().getExtras().getInt("workoutIndex");
 
         mStartTimer = (Button) findViewById(R.id.btn_timer_start);
         mSetIncrement = (Button) findViewById(R.id.btn_set_increment);
@@ -65,30 +70,7 @@ public class WorkoutActivity extends AppCompatActivity {
         nextSet = (FloatingActionButton) findViewById(R.id.fab);
         repCount = (NumberPicker) findViewById(R.id.rep_count);
 
-        ArrayList<String> pushUpCues = new ArrayList<>();
-        pushUpCues.add("Body in a straight line from head to toe: don't let the hips sag!");
-        pushUpCues.add("Lock out arms and protract the shoulder blades at the top");
-        pushUpCues.add("Go down until chest nearly touches the ground");
-        pushUpCues.add("Keep the elbows in, don't let them flare out");
-        pushUpCues.add("Don't shrug up your shoulders to your ears, focus on depressing the shoulder blades");
-
-        ArrayList<String> pullUpCues = new ArrayList<>();
-        pullUpCues.add("Body slightly hollow with straight legs throughout the whole exercise. " +
-                "Don't cross your legs.");
-        pullUpCues.add("If you cannot get straight legs, it's preferable to keep the feet " +
-                "in front of the body rather than behind.");
-        pullUpCues.add("Arms straight at the bottom. Don't think about anything else, " +
-                "just straight arms. The rest will happen automatically.");
-        pullUpCues.add("Strive for chest to bar at the top. For this the forearms have to deviate from vertical, " +
-                "which may be a bit hard on the elbows, so build up to it slowly.");
-        pullUpCues.add("Keep the neck in a neutral position: avoid craning it to " +
-                "get your chin over the bar");
-        pullUpCues.add("It's natural for your legs to come forward: this keeps your centre of " +
-                "mass under the bar. Just make sure you're not violently swinging them upwards.");
-
-        exerciseList = new ArrayList<>();
-        exerciseList.add(new ExerciseDB("Push-Up", 3, 8, 0, "IODxDxX7oi4", pushUpCues));  // Test exercise
-        exerciseList.add(new ExerciseDB("Pull-Up", 3, 5, 0, "eGo4IYlbE5g", pullUpCues));  // Test exercise
+        exerciseList = home_context.getWorkouts().get(index).getExerciseList();
 
         if (savedInstanceState != null) {
             currentExerciseIndex = savedInstanceState.getInt("currentExerciseIndex");
@@ -144,9 +126,9 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void updateExercise() {
-        ExerciseDB currentExercise = exerciseList.get(currentExerciseIndex);
+        Exercise currentExercise = exerciseList.get(currentExerciseIndex);
 
-        String exerciseName = currentExercise.getWorkoutName();
+        String exerciseName = currentExercise.getWorkout();
         maxSet = currentExercise.getSets();
         int reps = currentExercise.getReps();
         long duration = currentExercise.getDuration();
@@ -209,7 +191,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
     }
 
-    public ExerciseDB getCurrExercise(){
+    public Exercise getCurrExercise(){
         return exerciseList.get(currentExerciseIndex);
     }
 

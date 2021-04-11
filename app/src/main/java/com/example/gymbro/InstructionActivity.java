@@ -35,11 +35,11 @@ public class InstructionActivity extends AppCompatActivity {
         exerciseVideoButton = (Button) findViewById(R.id.btn_exercise_vid);
         backButton = (Button) findViewById(R.id.btn_back);
 
-        ExerciseDB currExercise = workout_context.getCurrExercise();
+        Exercise currExercise = workout_context.getCurrExercise();
 
-        exerciseNameTextView.setText(currExercise.getWorkoutName());
+        exerciseNameTextView.setText(currExercise.getWorkout());
         exerciseCuesTextView.setText(currExercise.getCues());
-        String vidId = currExercise.getVidId();
+        String vidId = currExercise.getVideo_id();
 
         exerciseVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
