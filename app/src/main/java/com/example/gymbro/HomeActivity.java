@@ -99,7 +99,8 @@ public class HomeActivity extends AppCompatActivity {
     public void addWorkout(WorkoutSchedule workoutSchedule) {
         workouts.add(workoutSchedule);
 
-        Task setValueTask = databaseReference.setValue(workoutSchedule);
+        String id = databaseReference.push().getKey();
+        Task setValueTask = databaseReference.child(id).setValue(workoutSchedule);
 
         setValueTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
