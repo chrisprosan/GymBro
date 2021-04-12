@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,11 +44,14 @@ public class HomeActivity extends AppCompatActivity {
         if (user != null) {
             String uid = user.getUid();
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-//            databaseReference.child("username").setValue("Chris");
+
+//          databaseReference.child("username").setValue("Chris");
             fab = findViewById(R.id.fab);
 
             WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
             list.setAdapter(adapter);
+
+
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
