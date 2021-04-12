@@ -3,6 +3,7 @@ package com.example.gymbro;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class InstructionActivity extends AppCompatActivity {
 
         exerciseNameTextView.setText(currExercise.getWorkout());
         exerciseCuesTextView.setText(currExercise.getCues());
-        String vidId = currExercise.getVideo_id();
+        String vidId = currExercise.getVideo_Id();
 
         exerciseVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override

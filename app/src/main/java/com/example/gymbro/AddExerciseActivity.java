@@ -40,7 +40,7 @@ public class AddExerciseActivity extends AppCompatActivity {
         appContext = (GymBroApplication) getApplicationContext();
         workout_wizard_context = appContext.workout_wizard_context;
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Workouts");
         list = findViewById((R.id.list_view));
         exerciseList = new ArrayList<>();
 

@@ -9,24 +9,25 @@ public class Exercise {
     private int sets;
     private int reps;
     private int Duration; // in seconds
-    private String Video_id;
+    private String Video_Id;
     private List<String> Instructions;
 
     private static final int DEFAULT_SETS = 3;
     private static final int DEFAULT_REPS = 8;
 
-    public Exercise() {}
-
-    public Exercise(String Workout, int Duration, String Video_id, List<String> Instructions) {
-        this.Workout = Workout;
+    public Exercise() {
         this.sets = DEFAULT_SETS;
-        this.Duration = Duration;
         if (this.Duration == 0) {  // Rep-based exercises
             this.reps = DEFAULT_REPS;
         } else {  // Time-based exercises
             this.reps = 0;
         }
-        this.Video_id = Video_id;  // Can be null
+    }
+
+    public Exercise(String Workout, int Duration, String Video_Id, List<String> Instructions) {
+        this.Workout = Workout;
+        this.Duration = Duration;
+        this.Video_Id = Video_Id;  // Can be null
         this.Instructions = Instructions;
     }
 
@@ -62,8 +63,8 @@ public class Exercise {
         this.Duration = Duration;
     }
 
-    public void setVideo_id(String Video_id) {
-        this.Video_id = Video_id;
+    public void setVideo_Id(String Video_id) {
+        this.Video_Id = Video_id;
     }
 
     public String getWorkout() {
@@ -82,10 +83,21 @@ public class Exercise {
         return Duration;
     }
 
-    public String getVideo_id() { return Video_id; }
+    public String getVideo_Id() { return Video_Id; }
 
     public List<String> getInstructions() {
         return Instructions;
     }
 
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "Workout='" + Workout + '\'' +
+                ", sets=" + sets +
+                ", reps=" + reps +
+                ", Duration=" + Duration +
+                ", Video_id='" + Video_Id + '\'' +
+                ", Instructions=" + Instructions +
+                '}';
+    }
 }
