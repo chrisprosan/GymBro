@@ -5,10 +5,12 @@ import java.util.List;
 
 public class WorkoutSchedule {
     private List<Exercise> exerciseList;
-    private List<Calendar> schedule;
+    private List<WorkoutDay> schedule;
     private String workoutName;
 
-    public WorkoutSchedule(String workoutName, List<Exercise> exerciseList, List<Calendar> schedule) {
+    public WorkoutSchedule(){}
+
+    public WorkoutSchedule(String workoutName, List<Exercise> exerciseList, List<WorkoutDay> schedule) {
         this.workoutName = workoutName;
         this.exerciseList = exerciseList;
         this.schedule = schedule;
@@ -18,12 +20,24 @@ public class WorkoutSchedule {
         return exerciseList;
     }
 
-    public List<Calendar> getSchedule() {
+    public List<WorkoutDay> getSchedule() {
         return schedule;
     }
 
     public String getWorkoutName() {
         return workoutName;
+    }
+
+    public void setExerciseList(List<Exercise> exerciseList) {
+        this.exerciseList = exerciseList;
+    }
+
+    public void setSchedule(List<WorkoutDay> schedule) {
+        this.schedule = schedule;
+    }
+
+    public void setWorkoutName(String workoutName) {
+        this.workoutName = workoutName;
     }
 
     @Override

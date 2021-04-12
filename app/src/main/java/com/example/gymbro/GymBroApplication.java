@@ -68,8 +68,17 @@ public class GymBroApplication extends Application {
         Log.i("Chris", "calendar: " + calendar.toString());
     }
 
-    public void setUpAlarms(List<Calendar> schedule) {
-        for (Calendar calendar : schedule) {
+    public void setUpAlarms(List<WorkoutDay> schedule) {
+
+        for (WorkoutDay workoutDay : schedule) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_WEEK, workoutDay.getDay());
+            calendar.set(Calendar.HOUR_OF_DAY, workoutDay.getHour());
+            calendar.set(Calendar.MINUTE, workoutDay.getMinute());
+            // Check we aren't setting it in the past which would trigger it to fire instantly
+            if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 7);
+            }
             scheduleAlarm(calendar);
         }
     }

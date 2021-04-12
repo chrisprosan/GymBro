@@ -47,7 +47,7 @@ public class WorkoutWizardActivity extends AppCompatActivity {
     public HashMap<Integer, Integer> hashMap_days = new HashMap<>();
     private final boolean[] days_selected = new boolean[7];  // 7 days in a week, starting from Monday
     private final int[] arr_hour_minutes = new int[2];  // index 0 is hour, 1 is minutes
-    private List<Calendar> schedule = new ArrayList<>();
+    private List<WorkoutDay> schedule = new ArrayList<>();
     private String workoutName = "";
     AlertDialog.Builder alertDialogBuilder;
 
@@ -117,23 +117,22 @@ public class WorkoutWizardActivity extends AppCompatActivity {
                 int hour = arr_hour_minutes[0];
                 int minutes = arr_hour_minutes[1];
                 Integer day_in_week = hashMap_days.get(i);
-                calendar.set(Calendar.DAY_OF_WEEK, day_in_week);
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minutes);
+                if (day_in_week != null) {
+                    WorkoutDay workoutDay = new WorkoutDay(day_in_week, hour, minutes);
 
-                // Check we aren't setting it in the past which would trigger it to fire instantly
-                if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
-                    calendar.add(Calendar.DAY_OF_YEAR, 7);
+                    // Check we aren't setting it in the past which would trigger it to fire instantly
+                    if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                        calendar.add(Calendar.DAY_OF_YEAR, 7);
+                    }
+                    schedule.add(workoutDay);
                 }
-                schedule.add(calendar);
             }
         }
 
         WorkoutSchedule workout_schedule = new WorkoutSchedule(workoutName, exerciseList, schedule);
         exerciseList = new ArrayList<>();
         schedule = new ArrayList<>();
-        List<WorkoutSchedule> workouts = home_context.getWorkouts();
-        workouts.add(workout_schedule);
+        home_context.addWorkout(workout_schedule);
         home_context.setup_alarms(workout_schedule);
         Log.e("Chris", "" + workout_schedule);
         app_context.showToast("Workout schedule created!", Toast.LENGTH_SHORT);

@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,15 +45,12 @@ public class HomeActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-
-//          databaseReference.child("username").setValue("Chris");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Workouts");
+//            databaseReference.child("username").setValue("Chris");
             fab = findViewById(R.id.fab);
 
             WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
             list.setAdapter(adapter);
-
-
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -93,11 +92,21 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void setup_alarms(WorkoutSchedule workoutSchedule) {
-        List<Calendar> schedule = workoutSchedule.getSchedule();
+        List<WorkoutDay> schedule = workoutSchedule.getSchedule();
         app_context.setUpAlarms(schedule);
     }
 
     public void addWorkout(WorkoutSchedule workoutSchedule) {
         workouts.add(workoutSchedule);
+
+        Task setValueTask = databaseReference.setValue(workoutSchedule);
+
+        setValueTask.addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                app_context.showToast("Work added to Firebase.",Toast.LENGTH_LONG);
+
+            }
+        });
     }
 }

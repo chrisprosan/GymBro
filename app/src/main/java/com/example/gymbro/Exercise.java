@@ -32,7 +32,7 @@ public class Exercise {
     }
 
 
-    public String getCues() {
+    public String returnFormattedCues() {
         StringBuilder formattedCues = new StringBuilder();
         int index = 0;
         for (String cue : this.Instructions) {
