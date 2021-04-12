@@ -13,7 +13,6 @@
         <activity android:name=".Firebase" />
         <activity android:name=".InstructionActivity" />
         <activity android:name=".SetUpWorkouts" />
-        <activity android:name=".SetUpWorkoutsSchedule" />
         <activity android:name=".AddExerciseActivity" />
         <activity android:name=".WorkoutActivity" />
         <activity android:name=".WorkoutWizardActivity"/>

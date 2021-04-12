@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     public GymBroApplication app_context;
     private final List<WorkoutSchedule> workouts = new ArrayList<>();
     ListView list;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,39 +39,43 @@ public class HomeActivity extends AppCompatActivity {
         app_context.home_context = this;
         list = findViewById((R.id.list_view));
         mCreateWorkoutSchedule = (Button) findViewById(R.id.btn_create_workout_schedule);
-        fab = findViewById(R.id.fab);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+//            databaseReference.child("username").setValue("Chris");
+            fab = findViewById(R.id.fab);
 
-        WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
-        list.setAdapter(adapter);
+            WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
+            list.setAdapter(adapter);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(HomeActivity.this, WorkoutActivity.class);
-                WorkoutSchedule w = workouts.get((int) l);
-                intent.putExtra("workoutIndex", (int)l);
-                startActivity(intent);
-            }
-        });
-
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(HomeActivity.this, WorkoutActivity.class);
+                    intent.putExtra("workoutIndex", (int) l);
+                    startActivity(intent);
+                }
+            });
 
 
-        mCreateWorkoutSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mCreateWorkoutSchedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                Intent i = new Intent(HomeActivity.this, SetUpWorkouts.class);
 //                startActivity(i);
-                Intent i = new Intent(HomeActivity.this, WorkoutWizardActivity.class);
-                startActivity(i);
-            }
-        });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this, WorkoutActivity.class);
-                startActivity(i);
-            }
-        });
+                    Intent i = new Intent(HomeActivity.this, WorkoutWizardActivity.class);
+                    startActivity(i);
+                }
+            });
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(HomeActivity.this, WorkoutActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
 
 
     }
@@ -81,5 +91,9 @@ public class HomeActivity extends AppCompatActivity {
     public void setup_alarms(WorkoutSchedule workoutSchedule) {
         List<Calendar> schedule = workoutSchedule.getSchedule();
         app_context.setUpAlarms(schedule);
+    }
+
+    public void addWorkout(WorkoutSchedule workoutSchedule) {
+        workouts.add(workoutSchedule);
     }
 }
