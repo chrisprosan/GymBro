@@ -124,8 +124,8 @@ public class HomeActivity extends AppCompatActivity {
                 workouts.clear();
                 for (DataSnapshot casesSnapshot : dataSnapshot.getChildren()) {
                     Log.e("Oves", casesSnapshot.getValue().toString());
-//                    WorkoutSchedule ws = casesSnapshot.getValue(WorkoutSchedule.class);
-//                        workouts.add(ws);
+                    WorkoutSchedule ws = casesSnapshot.getValue(WorkoutSchedule.class);
+                    workouts.add(ws);
 
                 }
 
