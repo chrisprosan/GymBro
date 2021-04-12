@@ -74,7 +74,7 @@ public class SetUpWorkoutsScheduleFragment extends Fragment {
             int day_index = i;
             btnArrl[i].setOnClickListener(new View.OnClickListener() {
                 final int defaultColor = Color.parseColor("#808080");
-                final int activeColor = Color.parseColor("#03DAC5");
+                final int activeColor = Color.parseColor("#ff0099cc");
                 boolean active = false;
                 @Override
                 public void onClick(View v) {

@@ -65,8 +65,6 @@ public class WorkoutActivity extends AppCompatActivity {
         exerciseNameTextView = (TextView) findViewById(R.id.exercise_name);
         timerCountTextView = (TextView) findViewById(R.id.timer_count);
         setTextView = (TextView) findViewById(R.id.set_count);
-        rest = (TextView) findViewById(R.id.rest);
-
         nextSet = (FloatingActionButton) findViewById(R.id.fab);
         repCount = (NumberPicker) findViewById(R.id.rep_count);
 
@@ -139,10 +137,8 @@ public class WorkoutActivity extends AppCompatActivity {
 
         if (duration == 0) {
             duration = REST_DURATION;
-            rest.setVisibility(View.VISIBLE);
 
         } else {  // Time-based exercises (i.e: planks, dead bugs...)
-            rest.setVisibility(View.GONE);
             timerCountTextView.setVisibility(View.VISIBLE);
             mStartTimer.setVisibility(View.VISIBLE);
 

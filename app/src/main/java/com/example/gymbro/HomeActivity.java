@@ -125,12 +125,9 @@ public class HomeActivity extends AppCompatActivity {
                     Log.e("Oves", casesSnapshot.getValue().toString());
                     WorkoutSchedule ws = casesSnapshot.getValue(WorkoutSchedule.class);
                     workouts.add(ws);
-
                 }
-
                 WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
                 list.setAdapter(adapter);
-
             }
 
             @Override

@@ -80,6 +80,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:headerBackground="@android:color/holo_blue_dark"
+                android:numbersSelectorColor="@android:color/holo_blue_dark"
                 android:textColor="@color/black"
                 android:text="@string/_00"/>
 
