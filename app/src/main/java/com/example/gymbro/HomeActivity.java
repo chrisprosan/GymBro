@@ -31,12 +31,13 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     Button mCreateWorkoutSchedule;
-    FloatingActionButton fab;
     public GymBroApplication app_context;
     private final List<WorkoutSchedule> workouts = new ArrayList<>();
     ListView list;
     DatabaseReference databaseReference;
     FirebaseUser user;
+    FirebaseAuth fAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,11 @@ public class HomeActivity extends AppCompatActivity {
         list = findViewById((R.id.list_view));
         mCreateWorkoutSchedule = (Button) findViewById(R.id.btn_create_workout_schedule);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        fAuth = FirebaseAuth.getInstance();
         if (user != null) {
             String uid = user.getUid();
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Workouts");
 //            databaseReference.child("username").setValue("Chris");
-            fab = findViewById(R.id.fab);
 
             WorkoutAdapter adapter = new WorkoutAdapter(HomeActivity.this, workouts);
             list.setAdapter(adapter);
@@ -75,18 +76,16 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(HomeActivity.this, WorkoutActivity.class);
-                    startActivity(i);
-                }
-            });
+
         }
-
-
     }
 
+    public void onLogout(View v) {
+        fAuth.signOut();
+        finishAffinity();
+        startActivity(new Intent(this, MainActivity.class));
+
+    }
     public List<WorkoutSchedule> getWorkouts() {
         return workouts;
     }
